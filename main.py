@@ -33,18 +33,21 @@ while game_started:
        food.refresh()
        snake.grow()
        scoreboard.add_point()
-       if DELAY > 0:
+       if DELAY > 0.3:
            DELAY -= 0.1
+       elif DELAY < 0.3 and DELAY > 0.05:
+            DELAY -= 0.01
 
+       print(DELAY)
     # Detect collision with wall
-    if snake.head.xcor() > 290 or snake.head.xcor() < -290 or snake.head.ycor() > 290 or snake.head.ycor() < -290:
+    if snake.head.xcor() > 295 or snake.head.xcor() < -295 or snake.head.ycor() > 295 or snake.head.ycor() < -295:
         game_started = False
         scoreboard.game_over()
 
     # Detect collision with self
     for segment in snake.snake[1:]:
-        snake.head.distance(segment) < 10:
-        game_started = False
-        scoreboard.game_over()
+        if snake.head.distance(segment) < 10:
+            game_started = False
+            scoreboard.game_over()
 
 screen.exitonclick()
